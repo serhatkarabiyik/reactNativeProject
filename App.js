@@ -5,8 +5,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 
 import { UserContext } from "./context/userContext";
-import LogTabs from "./navigator/userTabs";
-import Boardtabs from "./navigator/boardTabs";
 
 import UserTabs from "./navigator/userTabs";
 import BoardTabs from "./navigator/boardTabs";

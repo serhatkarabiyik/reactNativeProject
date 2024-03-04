@@ -6,7 +6,7 @@ import Home from "../vues/home";
 
 const Tab = createMaterialBottomTabNavigator();
 
-const Boardtabs = () => {
+const BoardTabs = () => {
   return (
     <Tab.Navigator>
       {/* <Tab.Screen name="Board" component={Home} /> */}
@@ -17,4 +17,4 @@ const Boardtabs = () => {
 
 const styles = StyleSheet.create({});
 
-export default Boardtabs;
+export default BoardTabs;
