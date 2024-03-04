@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { View, StyleSheet, Text, FlatList } from "react-native";
 import { UserContext } from "../context/userContext";
 import { getAllBoard } from "../api/board";
+import LongCard from "../components/longCard";
 
 const Home = ({}) => {
   const [boards, setBoard] = useState([]);
