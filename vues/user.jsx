@@ -1,11 +1,17 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
+import StatusBarBackground from "../components/statusBarBg";
 
 const Profil = ({}) => {
   return (
-    <View style={styles.container}>
-      <Text>Page Profil user</Text>
-    </View>
+    <>
+      <View>
+        <StatusBarBackground />
+      </View>
+      <View style={styles.container}>
+        <Text>Page Profil user</Text>
+      </View>
+    </>
   );
 };
 

@@ -9,6 +9,7 @@ import { StyleSheet, Text, View, TextInput } from "react-native";
 import { Input, Button } from "@rneui/themed";
 
 import { globalStyles } from "../styles/globalStyles";
+import StatusBarBackground from "../components/statusBarBg";
 
 const Login = () => {
   const [login, setLogin] = useState("");
@@ -27,40 +28,45 @@ const Login = () => {
   };
 
   return (
-    <View>
-      <Text style={globalStyles.title}>Connexion</Text>
-      <Input
-        placeholder="Entrez votre email"
-        keyboardType="email-adress"
-        style={globalStyles.input}
-        value={login}
-        onChangeText={setLogin}
-      />
-      <Input
-        placeholder="Entrez votre mot de passe"
-        secureTextEntry={true}
-        style={globalStyles.input}
-        value={pwd}
-        onChangeText={setPwd}
-      />
+    <>
+      <View>
+        <StatusBarBackground />
+      </View>
+      <View>
+        <Text style={globalStyles.title}>Connexion</Text>
+        <Input
+          placeholder="Entrez votre email"
+          keyboardType="email-adress"
+          style={globalStyles.input}
+          value={login}
+          onChangeText={setLogin}
+        />
+        <Input
+          placeholder="Entrez votre mot de passe"
+          secureTextEntry={true}
+          style={globalStyles.input}
+          value={pwd}
+          onChangeText={setPwd}
+        />
 
-      <Button
-        title="Connexion"
-        buttonStyle={{
-          backgroundColor: "blue",
-          borderWidth: 1,
-          borderColor: "white",
-          borderRadius: 30,
-        }}
-        containerStyle={{
-          width: 200,
-          marginHorizontal: 50,
-          marginVertical: 10,
-        }}
-        titleStyle={{ fontWeight: "bold" }}
-        onPress={handleRegister}
-      />
-    </View>
+        <Button
+          title="Connexion"
+          buttonStyle={{
+            backgroundColor: "blue",
+            borderWidth: 1,
+            borderColor: "white",
+            borderRadius: 30,
+          }}
+          containerStyle={{
+            width: 200,
+            marginHorizontal: 50,
+            marginVertical: 10,
+          }}
+          titleStyle={{ fontWeight: "bold" }}
+          onPress={handleLogin}
+        />
+      </View>
+    </>
   );
 };
 
