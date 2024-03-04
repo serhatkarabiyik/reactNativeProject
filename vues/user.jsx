@@ -1,22 +1,61 @@
-import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import React, { useContext } from "react";
+import { UserContext } from "../context/userContext";
+
+// Component
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Avatar, Button } from "@rneui/themed";
 
 const Profil = ({}) => {
+  const { user, setUser } = useContext(UserContext);
+
+  const handleLogout = () => {
+    setUser(undefined);
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>Page Profil user</Text>
-    </View>
+    <ScrollView style={styles.ScrollView}>
+      <View style={styles.container}>
+        <Avatar
+          size={120}
+          rounded
+          title={user.email.charAt(0).toUpperCase()}
+          containerStyle={{ backgroundColor: "blue" }}
+        />
+        <Text style={styles.title}>{user.email}</Text>
+
+        <Button
+          title="Déconnexion"
+          buttonStyle={{
+            backgroundColor: "blue",
+            borderWidth: 1,
+            borderColor: "white",
+            borderRadius: 30,
+            marginVertical: 80,
+          }}
+          containerStyle={{
+            width: 200,
+            marginHorizontal: 50,
+            marginVertical: 10,
+          }}
+          titleStyle={{ fontWeight: "bold" }}
+          onPress={handleLogout}
+        />
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     paddingTop: 50,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: 600,
   },
-  button: {
-    backgroundColor: "red",
-    width: 100,
-    height: 100,
+  title: {
+    fontSize: 28,
+    marginTop: 20,
   },
 });
 

@@ -4,19 +4,20 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 
-import Register from "./vues/register";
 import { UserContext } from "./context/userContext";
+
+import UserTabs from "./navigator/userTabs";
+import BoardTabs from "./navigator/boardTabs";
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState();
+  console.log(user);
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen name="register" component={Register}></Tab.Screen>
-        </Tab.Navigator>
+        {user ? <BoardTabs /> : <UserTabs />}
       </NavigationContainer>
     </UserContext.Provider>
   );

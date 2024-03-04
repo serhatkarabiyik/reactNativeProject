@@ -5,9 +5,12 @@ import { registerUser } from "../api/auth";
 import { UserContext } from "../context/userContext";
 
 // component
-import { StyleSheet, Text, View, TextInput } from "react-native";
-import { Input, Button } from "@rneui/themed";
+import { StyleSheet, Text, View, Alert } from "react-native";
+import { Input, Button, Icon } from "@rneui/themed";
+import Toast from "react-native-toast-message";
 
+// Utils
+import { checkInput } from "../utils";
 import { globalStyles } from "../styles/globalStyles";
 
 const Register = () => {
@@ -17,25 +20,72 @@ const Register = () => {
   const { setUser } = useContext(UserContext);
 
   const handleRegister = async () => {
-    if (pass === confirm) {
+    if (pwd === confirm) {
       try {
         const user = await registerUser(login, pwd);
         setUser(user);
       } catch (error) {
-        Alert.alert(error.message);
+        console.log(error.code);
+        if (error.message.includes("invalid-email")) {
+          Toast.show({
+            type: "error",
+            text1: "Erreur",
+            text2: "Email non valide !",
+            text2Style: {
+              fontSize: 14,
+            },
+          });
+        } else if (error.message.includes("password")) {
+          console.log("ok");
+          Toast.show({
+            type: "error",
+            text1: "Erreur",
+            text2: "Mot de passe !",
+            text2Style: {
+              fontSize: 14,
+            },
+          });
+        } else if (error.message.includes("email-already-in-use")) {
+          Toast.show({
+            type: "error",
+            text1: "Erreur",
+            text2: "Email déja utilisé !",
+            text2Style: {
+              fontSize: 14,
+            },
+          });
+        } else {
+          Toast.show({
+            type: "error",
+            text1: "Erreur",
+            text2: "Veuillez réessayer",
+            text2Style: {
+              fontSize: 14,
+            },
+          });
+        }
       }
     }
   };
 
   return (
-    <View>
-      <Text style={globalStyles.title}>S'inscrire</Text>
+    <View style={globalStyles.containerForm}>
+      <Toast
+        ref={(ref) => {
+          Toast.setRef(ref);
+        }}
+      />
+      <Text style={globalStyles.title}>Inscription</Text>
       <Input
         placeholder="Entrez votre email"
-        keyboardType="email-adress"
+        keyboardType="email-address"
         style={globalStyles.input}
         value={login}
         onChangeText={setLogin}
+        leftIcon={<Icon name="supervised-user-circle" size={20} />}
+        errorMessage={
+          checkInput(login, "email") ? "" : "Entrez un email valide !"
+        }
       />
       <Input
         placeholder="Entrez votre mot de passe"
@@ -43,6 +93,11 @@ const Register = () => {
         style={globalStyles.input}
         value={pwd}
         onChangeText={setPwd}
+        leftIcon={<Icon name="password" size={20} />}
+        errorMessage={
+          !checkInput(pwd, "password") &&
+          "Le mot de passe doit contenir au moins 6 caractères !"
+        }
       />
       <Input
         placeholder="Confirmez votre mot de passe"
@@ -50,6 +105,12 @@ const Register = () => {
         style={globalStyles.input}
         value={confirm}
         onChangeText={setConfirm}
+        leftIcon={<Icon name="password" size={20} />}
+        errorMessage={
+          pwd.length >= 6 &&
+          pwd !== confirm &&
+          "Les mots de passe ne correspondent pas !"
+        }
       />
 
       <Button

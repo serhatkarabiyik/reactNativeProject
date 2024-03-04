@@ -5,9 +5,12 @@ import { loginUser } from "../api/auth";
 import { UserContext } from "../context/userContext";
 
 // component
-import { StyleSheet, Text, View, TextInput } from "react-native";
-import { Input, Button } from "@rneui/themed";
+import { StyleSheet, Text, View, Alert } from "react-native";
+import { Input, Button, Icon } from "@rneui/themed";
+import Toast from "react-native-toast-message";
 
+// Utils
+import { checkInput } from "../utils";
 import { globalStyles } from "../styles/globalStyles";
 
 const Login = () => {
@@ -16,25 +19,39 @@ const Login = () => {
   const { setUser } = useContext(UserContext);
 
   const handleLogin = async () => {
-    if (pass === confirm) {
-      try {
-        const user = await loginUser(login, pwd);
-        setUser(user);
-      } catch (error) {
-        Alert.alert(error.message);
-      }
+    try {
+      const user = await loginUser(login, pwd);
+      setUser(user);
+    } catch (error) {
+      Toast.show({
+        type: "error",
+        text1: "Erreur",
+        text2: "Identifiants non valides !",
+        text2Style: {
+          fontSize: 14,
+        },
+      });
     }
   };
 
   return (
-    <View>
+    <View style={globalStyles.containerForm}>
+      <Toast
+        ref={(ref) => {
+          Toast.setRef(ref);
+        }}
+      />
       <Text style={globalStyles.title}>Connexion</Text>
       <Input
         placeholder="Entrez votre email"
-        keyboardType="email-adress"
+        keyboardType="email-address"
         style={globalStyles.input}
         value={login}
         onChangeText={setLogin}
+        leftIcon={<Icon name="supervised-user-circle" size={20} />}
+        errorMessage={
+          checkInput(login, "email") ? "" : "Entrez un email valide !"
+        }
       />
       <Input
         placeholder="Entrez votre mot de passe"
@@ -42,6 +59,12 @@ const Login = () => {
         style={globalStyles.input}
         value={pwd}
         onChangeText={setPwd}
+        leftIcon={<Icon name="password" size={20} />}
+        errorMessage={
+          checkInput(pwd, "password")
+            ? ""
+            : "Le mot de passe doit contenir au moins 6 caractères !"
+        }
       />
 
       <Button
@@ -58,7 +81,7 @@ const Login = () => {
           marginVertical: 10,
         }}
         titleStyle={{ fontWeight: "bold" }}
-        onPress={handleRegister}
+        onPress={handleLogin}
       />
     </View>
   );

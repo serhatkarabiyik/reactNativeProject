@@ -10,7 +10,6 @@ const Home = ({}) => {
     (async () => {
       const c = await getAllTask(user.uid);
       setCarnets(c);
-      console.log(c);
     })();
   }, []);
 
