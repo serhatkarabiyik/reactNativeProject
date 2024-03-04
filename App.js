@@ -13,7 +13,6 @@ const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
   const [user, setUser] = useState();
-  console.log(user);
 
   const [board, setTask] = useState("");
   return (
