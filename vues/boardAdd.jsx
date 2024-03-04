@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import { globalStyles } from "../globalStyles/globalStyles";
+import { globalStyles } from "../styles/globalStyles";
 import { UserContext } from "../context/userContext";
 import { ajoutBoard } from "../api/board";
 
@@ -18,13 +18,13 @@ const BoardAjout = () => {
     try {
       console.log(user);
       ajoutBoard(user.uid, nom);
-      Alert.alert("Carnet ajouté");
+      Alert.alert("project ajouté");
     } catch (error) {
       Alert.alert(error.message);
     }
   };
   return (
-    <View style={globalStyles.container}>
+    <View style={globalStyles.containerForm}>
       <TextInput
         placeholder="Nom du projet"
         style={globalStyles.input}

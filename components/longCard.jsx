@@ -1,9 +1,9 @@
-import React, { UserContext } from "react";
+import React, { useContext } from "react";
 import { UserContext } from "../context/userContext";
 
-import { globalStyles } from "../globalStyles/globalStyles";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { globalStyles } from "../styles/globalStyles";
 import { Text } from "react-native-paper";
+import { TouchableOpacity } from "react-native";
 
 const LongCard = ({ data, nav }) => {
   const { setBoard } = useContext(UserContext);

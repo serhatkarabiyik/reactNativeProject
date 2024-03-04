@@ -3,6 +3,7 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import User from "../vues/user";
 import Home from "../vues/home";
+import BoardAjout from "../vues/boardAdd";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -10,6 +11,7 @@ const BoardTabs = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Board" component={Home} />
+      <Tab.Screen name="Add" component={BoardAjout} />
       <Tab.Screen name="Profil" component={User} />
     </Tab.Navigator>
   );
