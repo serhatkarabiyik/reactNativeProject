@@ -9,7 +9,7 @@ const Tab = createMaterialBottomTabNavigator();
 const BoardTabs = () => {
   return (
     <Tab.Navigator>
-      {/* <Tab.Screen name="Board" component={Home} /> */}
+      <Tab.Screen name="Board" component={Home} />
       <Tab.Screen name="Profil" component={User} />
     </Tab.Navigator>
   );

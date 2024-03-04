@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { View, StyleSheet, Text, FlatList } from "react-native";
 import { UserContext } from "../context/userContext";
 import { getAllBoard } from "../api/board";
