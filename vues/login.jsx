@@ -41,11 +41,7 @@ const Login = () => {
         <StatusBarBackground />
       </View>
       <View style={globalStyles.containerForm}>
-        <Toast
-          ref={(ref) => {
-            Toast.setRef(ref);
-          }}
-        />
+        <Toast />
         <Text style={globalStyles.title}>Connexion</Text>
         <Input
           placeholder="Entrez votre email"
