@@ -4,6 +4,7 @@ import { UserContext } from "../context/userContext";
 // Component
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { Avatar, Button } from "@rneui/themed";
+import StatusBarBackground from "../components/statusBarBg";
 
 const Profil = ({}) => {
   const { user, setUser } = useContext(UserContext);
@@ -13,35 +14,40 @@ const Profil = ({}) => {
   };
 
   return (
-    <ScrollView style={styles.ScrollView}>
-      <View style={styles.container}>
-        <Avatar
-          size={120}
-          rounded
-          title={user.email.charAt(0).toUpperCase()}
-          containerStyle={{ backgroundColor: "blue" }}
-        />
-        <Text style={styles.title}>{user.email}</Text>
-
-        <Button
-          title="Déconnexion"
-          buttonStyle={{
-            backgroundColor: "blue",
-            borderWidth: 1,
-            borderColor: "white",
-            borderRadius: 30,
-            marginVertical: 80,
-          }}
-          containerStyle={{
-            width: 200,
-            marginHorizontal: 50,
-            marginVertical: 10,
-          }}
-          titleStyle={{ fontWeight: "bold" }}
-          onPress={handleLogout}
-        />
+    <>
+      <View>
+        <StatusBarBackground />
       </View>
-    </ScrollView>
+      <ScrollView style={styles.ScrollView}>
+        <View style={styles.container}>
+          <Avatar
+            size={120}
+            rounded
+            title={user.email.charAt(0).toUpperCase()}
+            containerStyle={{ backgroundColor: "blue" }}
+          />
+          <Text style={styles.title}>{user.email}</Text>
+
+          <Button
+            title="Déconnexion"
+            buttonStyle={{
+              backgroundColor: "blue",
+              borderWidth: 1,
+              borderColor: "white",
+              borderRadius: 30,
+              marginVertical: 80,
+            }}
+            containerStyle={{
+              width: 200,
+              marginHorizontal: 50,
+              marginVertical: 10,
+            }}
+            titleStyle={{ fontWeight: "bold" }}
+            onPress={handleLogout}
+          />
+        </View>
+      </ScrollView>
+    </>
   );
 };
 

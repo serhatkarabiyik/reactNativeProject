@@ -6,7 +6,7 @@ import Home from "../vues/home";
 
 const Tab = createMaterialBottomTabNavigator();
 
-const CarnetTabs = () => {
+const Boardtabs = () => {
   return (
     <Tab.Navigator>
       {/* <Tab.Screen name="Board" component={Home} /> */}
@@ -17,4 +17,4 @@ const CarnetTabs = () => {
 
 const styles = StyleSheet.create({});
 
-export default CarnetTabs;
+export default Boardtabs;
