@@ -5,12 +5,12 @@ import { loginUser } from "../api/auth";
 import { UserContext } from "../context/userContext";
 
 // component
-import { StyleSheet, Text, View, Alert } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { Input, Button, Icon } from "@rneui/themed";
 import Toast from "react-native-toast-message";
 
 // Utils
-import { checkInput } from "../utils";
+import { checkInput, toastConfig } from "../utils";
 import { globalStyles } from "../styles/globalStyles";
 import StatusBarBackground from "../components/statusBarBg";
 
@@ -24,14 +24,41 @@ const Login = () => {
       const user = await loginUser(login, pwd);
       setUser(user);
     } catch (error) {
-      Toast.show({
-        type: "error",
-        text1: "Erreur",
-        text2: "Identifiants non valides !",
-        text2Style: {
-          fontSize: 14,
-        },
-      });
+      if (error.message.includes("too-many-requests")) {
+        Toast.show({
+          type: "error",
+          text1: "Erreur",
+          text2:
+            "Accès temporairement désactivé. \n Merci de réinitialiser votre mot de passe ou de réessayer plus tard !",
+          text2Style: {
+            fontSize: 14,
+          },
+          contentContainerStyle: {
+            paddingHorizontal: 50,
+          },
+          topOffset: 0,
+        });
+      } else if (error.message.includes("invalid-credential")) {
+        Toast.show({
+          type: "error",
+          text1: "Erreur",
+          text2: "Identifiants non valides !",
+          text2Style: {
+            fontSize: 14,
+          },
+          topOffset: 0,
+        });
+      } else {
+        Toast.show({
+          type: "error",
+          text1: "Erreur",
+          text2: "Identifiants non valides !",
+          text2Style: {
+            fontSize: 14,
+          },
+          topOffset: 0,
+        });
+      }
     }
   };
 
@@ -41,7 +68,12 @@ const Login = () => {
         <StatusBarBackground />
       </View>
       <View style={globalStyles.containerForm}>
-        <Toast />
+        <Toast
+          ref={(ref) => {
+            Toast.setRef(ref);
+          }}
+          config={toastConfig}
+        />
         <Text style={globalStyles.title}>Connexion</Text>
         <Input
           placeholder="Entrez votre email"

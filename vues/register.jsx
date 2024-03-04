@@ -10,7 +10,7 @@ import { Input, Button, Icon } from "@rneui/themed";
 import Toast from "react-native-toast-message";
 
 // Utils
-import { checkInput } from "../utils";
+import { checkInput, toastConfig } from "../utils";
 import { globalStyles } from "../styles/globalStyles";
 import StatusBarBackground from "../components/statusBarBg";
 
@@ -21,7 +21,7 @@ const Register = () => {
   const { setUser } = useContext(UserContext);
 
   const handleRegister = async () => {
-    if (pwd === confirm) {
+    if ((pwd === confirm && pwd !== "") || pwd != " ") {
       try {
         const user = await registerUser(login, pwd);
         setUser(user);
@@ -35,9 +35,9 @@ const Register = () => {
             text2Style: {
               fontSize: 14,
             },
+            topOffset: 0,
           });
         } else if (error.message.includes("password")) {
-          console.log("ok");
           Toast.show({
             type: "error",
             text1: "Erreur",
@@ -45,6 +45,7 @@ const Register = () => {
             text2Style: {
               fontSize: 14,
             },
+            topOffset: 0,
           });
         } else if (error.message.includes("email-already-in-use")) {
           Toast.show({
@@ -54,6 +55,7 @@ const Register = () => {
             text2Style: {
               fontSize: 14,
             },
+            topOffset: 0,
           });
         } else {
           Toast.show({
@@ -63,6 +65,7 @@ const Register = () => {
             text2Style: {
               fontSize: 14,
             },
+            topOffset: 0,
           });
         }
       }
@@ -75,7 +78,12 @@ const Register = () => {
         <StatusBarBackground />
       </View>
       <View style={globalStyles.containerForm}>
-        <Toast />
+        <Toast
+          ref={(ref) => {
+            Toast.setRef(ref);
+          }}
+          config={toastConfig}
+        />
         <Text style={globalStyles.title}>Inscription</Text>
         <Input
           placeholder="Entrez votre email"

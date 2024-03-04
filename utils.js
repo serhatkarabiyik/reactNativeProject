@@ -1,3 +1,5 @@
+import { StyleSheet, Text, View } from "react-native";
+
 export function checkInput(value, type) {
   if (value.length < 1) {
     return true;
@@ -13,3 +15,32 @@ export function checkInput(value, type) {
     }
   }
 }
+
+export const toastConfig = {
+  error: (props) => (
+    <View style={[styles.container, styles.errorContainer]}>
+      <Text style={styles.title}>{props.text1}</Text>
+      <Text>{props.text2}</Text>
+    </View>
+  ),
+};
+
+const styles = StyleSheet.create({
+  container: {
+    height: "max-content",
+    padding: 15,
+    backgroundColor: "white",
+    borderRadius: 8,
+    zIndex: 100000,
+    width: "100%",
+  },
+  errorContainer: {
+    borderLeftWidth: 6,
+    borderLeftColor: "red",
+    borderWidth: 1,
+    borderColor: "red",
+  },
+  title: {
+    fontWeight: "bold",
+  },
+});
