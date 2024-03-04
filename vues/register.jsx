@@ -78,12 +78,7 @@ const Register = () => {
         <StatusBarBackground />
       </View>
       <View style={globalStyles.containerForm}>
-        <Toast
-          ref={(ref) => {
-            Toast.setRef(ref);
-          }}
-          config={toastConfig}
-        />
+        <Toast config={toastConfig} />
         <Text style={globalStyles.title}>Inscription</Text>
         <Input
           placeholder="Entrez votre email"
