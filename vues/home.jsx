@@ -1,24 +1,25 @@
 import React, { useContext, useState } from "react";
 import { View, StyleSheet, Text, FlatList } from "react-native";
-import { getAllTask } from "../api/task";
 import { UserContext } from "../context/userContext";
+import { getAllBoard } from "../api/board";
 
 const Home = ({}) => {
-  const [tasks, setTasks] = useState([]);
+  const [boards, setBoard] = useState([]);
   const { user } = useContext(UserContext);
   useEffect(() => {
     (async () => {
-      const c = await getAllTask(user.uid);
-      setCarnets(c);
+      const c = await getAllBoard(user.uid);
+      setBoard(c);
+      console.log(c);
     })();
   }, []);
 
   return (
     <View style={styles.container}>
-      <Text>Liste des tâches</Text>
+      <Text>Liste des projets</Text>
       <FlatList
-        data={tasks}
-        renderItem={{ item }}
+        data={boards}
+        renderItem={({ item }) => <LongCard data={item} nav={navigation} />}
         keyExtractor={(item) => item.name}
       />
     </View>
