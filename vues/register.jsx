@@ -26,7 +26,6 @@ const Register = () => {
         const user = await registerUser(login, pwd);
         setUser(user);
       } catch (error) {
-        console.log(error.code);
         if (error.message.includes("invalid-email")) {
           Toast.show({
             type: "error",
