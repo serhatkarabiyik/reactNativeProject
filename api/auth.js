@@ -29,7 +29,6 @@ export async function loginUser(email, password) {
     const user = userCredential.user;
     return user;
   } catch (error) {
-    console.log(error);
     throw new Error(error.message);
   }
 }
