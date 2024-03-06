@@ -10,7 +10,7 @@ const LongCard = ({ data, nav }) => {
   const { setBoard } = useContext(UserContext);
   const handleClick = () => {
     setBoard(data.name);
-    nav.navigate("");
+    nav.navigate("projectTabs");
   };
   return (
     <Card>
