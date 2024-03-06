@@ -17,7 +17,8 @@ import { createColumn } from "../api/column";
 const Column = () => {
   const { user, board } = useContext(UserContext);
 
-  const column = createColumn(user.uid, board, "title");
+  //   test create Column update when view when navigation done
+  const column = createColumn(user.uid, board, "test2");
 
   return (
     <>

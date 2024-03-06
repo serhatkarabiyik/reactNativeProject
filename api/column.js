@@ -8,6 +8,7 @@ import {
   getDoc,
   getDocs,
   where,
+  updateDoc,
 } from "@firebase/firestore";
 
 import "react-native-get-random-values";
@@ -20,13 +21,26 @@ export async function createColumn(userId, boardId, title) {
 
     const querySnapshot = await getDocs(boardQuery);
 
-    querySnapshot.forEach((doc) => {
-      console.log(doc);
+    if (querySnapshot.empty) {
+      throw new Error("Board not found");
+    }
+
+    querySnapshot.forEach(async (doc) => {
+      const boardRef = doc.ref;
+      console.log(doc.data().columns);
+      let columns = doc.data().columns || [];
+
+      const newColumn = {
+        columnId: uuidv4(),
+        tasks: [],
+        columnTitle: title,
+      };
+
+      columns.push(newColumn);
+      console.log(columns);
+      await updateDoc(boardRef, { columns });
     });
 
-    // const newColumn = await addDoc(boardCollection, {
-    //   name: name,
-    // });
     // return newBoardRef.id;
   } catch (error) {
     console.error("Error adding board: ", error);
