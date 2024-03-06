@@ -23,9 +23,7 @@ const Home = ({ navigation }) => {
   const loadBoards = async () => {
     try {
       const c = await getAllBoard(user.uid);
-      console.log(user);
       setBoard(c);
-      console.log(c);
     } catch (error) {
       console.error("Error loading boards:", error);
       // Gérer l'erreur de chargement des projets

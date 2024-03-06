@@ -14,9 +14,9 @@ const Tab = createMaterialBottomTabNavigator();
 export default function App() {
   const [user, setUser] = useState();
 
-  const [board, setTask] = useState("");
+  const [board, setBoard] = useState("");
   return (
-    <UserContext.Provider value={{ user, setUser, board, setTask }}>
+    <UserContext.Provider value={{ user, setUser, board, setBoard }}>
       <NavigationContainer>
         {user ? <BoardTabs /> : <UserTabs />}
       </NavigationContainer>

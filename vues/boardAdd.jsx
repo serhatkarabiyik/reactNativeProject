@@ -16,7 +16,6 @@ const BoardAjout = () => {
   const { user } = useContext(UserContext);
   const handleAjout = () => {
     try {
-      console.log(user);
       ajoutBoard(user.uid, nom);
       Alert.alert("project ajouté");
     } catch (error) {

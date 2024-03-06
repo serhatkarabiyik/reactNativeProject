@@ -9,7 +9,7 @@ import { Card, Icon } from "@rneui/themed";
 const LongCard = ({ data, nav }) => {
   const { setBoard } = useContext(UserContext);
   const handleClick = () => {
-    setBoard(data.name);
+    setBoard(data.boardId);
     nav.navigate("");
   };
   return (
