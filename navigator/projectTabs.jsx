@@ -1,52 +1,53 @@
 // Importation du composant createMaterialBottomTabNavigator depuis la bibliothèque React Navigation
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 
-// Importation du composant MaterialCommunityIcons depuis la bibliothèque react-native-vector-icons
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-
 // Importation de React pour créer des composants React
 import React from "react";
 
 // Importation du composant StyleSheet de React Native pour définir des styles
 import { StyleSheet } from "react-native";
 
-// Importation des composants Register et Login depuis les fichiers correspondants
-import Register from "../vues/register";
-import Login from "../vues/login";
+// Importation des composants Home, TaskAdd et ColumnAdd depuis les fichiers correspondants
+import Home from "../vues/home";
+import TaskAdd from "../vues/taskAdd";
+import ColumnAdd from "../vues/columnAdd";
 
 // Création d'une instance de createMaterialBottomTabNavigator
 const Tab = createMaterialBottomTabNavigator();
 
-// Définition du composant UserTabs qui représente l'écran avec un onglet de navigation pour les utilisateurs
-const UserTabs = () => {
+// Définition du composant ProjectTabs qui représente l'écran avec un onglet de navigation
+const ProjectTabs = () => {
   return (
     // Utilisation du Tab.Navigator pour définir la structure de l'onglet
     <Tab.Navigator>
-      {/* Onglet "Inscription" avec l'écran Register */}
+      {/* Onglet "Board" avec l'écran Home */}
       <Tab.Screen
-        name="Inscription"
-        component={Register}
+        name="Board"
+        component={Home}
         // Options de l'onglet, telles que le label et l'icône
         options={{
-          tabBarLabel: "Inscription",
+          tabBarLabel: "Home",
           tabBarIcon: ({ color }) => (
             // Icône de l'onglet utilisant le composant MaterialCommunityIcons
-            <MaterialCommunityIcons name="login" size={26} />
+            <MaterialCommunityIcons name="view-dashboard" size={26} />
           ),
         }}
-      ></Tab.Screen>
+      />
 
-      {/* Onglet "Connexion" avec l'écran Login */}
+      {/* Onglet "Column add" avec l'écran ColumnAdd */}
       <Tab.Screen
-        name="Connexion"
-        component={Login}
+        name="Column add"
+        component={ColumnAdd}
         options={{
-          tabBarLabel: "Connexion",
+          tabBarLabel: "Add",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="account-plus" size={26} />
+            <MaterialCommunityIcons name="plus-circle" size={26} />
           ),
         }}
-      ></Tab.Screen>
+      />
+
+      {/* Onglet "Tâche add" avec l'écran TaskAdd */}
+      <Tab.Screen name="Tâche add" component={TaskAdd} />
     </Tab.Navigator>
   );
 };
@@ -54,5 +55,5 @@ const UserTabs = () => {
 // Styles (actuellement vides, peuvent être remplis en fonction des besoins)
 const styles = StyleSheet.create({});
 
-// Exportation du composant UserTabs pour pouvoir l'utiliser ailleurs dans l'application
-export default UserTabs;
+// Exportation du composant ProjectTabs pour pouvoir l'utiliser ailleurs dans l'application
+export default ProjectTabs;

@@ -24,14 +24,14 @@ const Profil = ({}) => {
             size={120}
             rounded
             title={user.email.charAt(0).toUpperCase()}
-            containerStyle={{ backgroundColor: "blue" }}
+            containerStyle={{ backgroundColor: "#007FFF" }}
           />
           <Text style={styles.title}>{user.email}</Text>
 
           <Button
             title="Déconnexion"
             buttonStyle={{
-              backgroundColor: "blue",
+              backgroundColor: "#007FFF",
               borderWidth: 1,
               borderColor: "white",
               borderRadius: 30,

@@ -119,7 +119,7 @@ const Register = () => {
         <Button
           title="S'inscrire"
           buttonStyle={{
-            backgroundColor: "blue",
+            backgroundColor: "#007FFF",
             borderWidth: 1,
             borderColor: "white",
             borderRadius: 30,

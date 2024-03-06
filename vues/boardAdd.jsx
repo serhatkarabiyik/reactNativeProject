@@ -17,17 +17,35 @@ const BoardAjout = () => {
     }
   };
   return (
-    <View style={globalStyles.containerForm}>
-      <Input
-        placeholder="Nom du projet"
-        style={globalStyles.input}
-        value={nom}
-        onChangeText={setNom}
-      />
-      <TouchableOpacity style={globalStyles.btn} onPress={handleAjout}>
-        <Text style={globalStyles.btnText}>Ajout</Text>
-      </TouchableOpacity>
-    </View>
+    <>
+      <View>
+        <StatusBarBackground />
+      </View>
+      <View style={globalStyles.containerForm}>
+        <Input
+          placeholder="Nom du projet"
+          style={globalStyles.input}
+          value={nom}
+          onChangeText={setNom}
+        />
+        <Button
+          title="Ajouter"
+          buttonStyle={{
+            backgroundColor: "#007FFF",
+            borderWidth: 1,
+            borderColor: "white",
+            borderRadius: 30,
+          }}
+          containerStyle={{
+            width: 200,
+            marginHorizontal: 50,
+            marginVertical: 10,
+          }}
+          titleStyle={{ fontWeight: "bold" }}
+          onPress={handleAjout}
+        />
+      </View>
+    </>
   );
 };
 

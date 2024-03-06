@@ -8,6 +8,7 @@ import { UserContext } from "./context/userContext";
 
 import UserTabs from "./navigator/userTabs";
 import BoardTabs from "./navigator/boardTabs";
+import ProjectTabs from "./navigator/projectTabs";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -18,7 +19,25 @@ export default function App() {
   return (
     <UserContext.Provider value={{ user, setUser, board, setBoard }}>
       <NavigationContainer>
-        {user ? <BoardTabs /> : <UserTabs />}
+        {/* pour changement de navigation quand clique un board
+        
+        {user ? (
+          board ? (
+            // Si l'utilisateur est connecté et affiche un tableau, utilisez BoardView
+            <ProjectTabs />
+          ) : (
+            // Si l'utilisateur est connecté mais ne montre pas un tableau, utilisez BoardTabs
+            <BoardTabs />
+          )
+        ) : (
+          // Si l'utilisateur n'est pas connecté, utilisez UserTabs
+          <UserTabs />
+        )} */}
+        <UserContext.Provider value={{ user, setUser, board, setBoard }}>
+          <NavigationContainer>
+            {user ? <BoardTabs /> : <UserTabs />}
+          </NavigationContainer>
+        </UserContext.Provider>
       </NavigationContainer>
     </UserContext.Provider>
   );
