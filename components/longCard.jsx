@@ -9,8 +9,8 @@ import { Card, Icon } from "@rneui/themed";
 const LongCard = ({ data, nav }) => {
   const { setBoard } = useContext(UserContext);
   const handleClick = () => {
-    setBoard(data.name);
-    nav.navigate("projectTabs");
+    setBoard(data.boardId);
+    nav.navigate("");
   };
   return (
     <Card>

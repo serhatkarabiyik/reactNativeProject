@@ -10,12 +10,17 @@ import {
   where,
 } from "@firebase/firestore";
 
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
+
 export async function ajoutBoard(userId, name) {
   try {
     const boardCollection = collection(firestore, "boards");
     const newBoardRef = await addDoc(boardCollection, {
       name: name,
       createdBy: userId,
+      boardId: uuidv4(),
+      columns: [],
     });
     console.log("New board added with ID: ", newBoardRef.id);
     return newBoardRef.id;

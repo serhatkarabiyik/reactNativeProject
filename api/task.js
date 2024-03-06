@@ -10,6 +10,9 @@ import {
   where,
 } from "@firebase/firestore";
 
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
+
 export function getAllTask(userId) {
   return new Promise((res, rej) => {
     const starCountRef = ref(database, userId);
@@ -40,7 +43,7 @@ export async function createTask(userId, columnId, title, description) {
     const newTask = {
       titleTask: title,
       descriptionTask: description,
-      idTask: Math.floor(Math.random()),
+      idTask: uuidv4(),
     };
 
     // await updateDoc(boardDocRef, {

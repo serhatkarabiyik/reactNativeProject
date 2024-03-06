@@ -17,6 +17,12 @@ export function checkInput(value, type) {
 }
 
 export const toastConfig = {
+  success: (props) => (
+    <View style={[styles.container, styles.successContainer]}>
+      <Text style={styles.title}>{props.text1}</Text>
+      <Text>{props.text2}</Text>
+    </View>
+  ),
   error: (props) => (
     <View style={[styles.container, styles.errorContainer]}>
       <Text style={styles.title}>{props.text1}</Text>
@@ -33,6 +39,12 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     zIndex: 100000,
     width: "100%",
+  },
+  successContainer: {
+    borderLeftWidth: 6,
+    borderLeftColor: "green",
+    borderWidth: 1,
+    borderColor: "green",
   },
   errorContainer: {
     borderLeftWidth: 6,
