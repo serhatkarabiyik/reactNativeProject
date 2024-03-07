@@ -13,19 +13,26 @@ import StatusBarBackground from "../components/statusBarBg";
 // Utils
 import { globalStyles } from "../styles/globalStyles";
 import { toastConfig } from "../utils";
+import ColumnCard from "../components/columnCard";
+import { ScrollView } from "react-native-gesture-handler";
 
-const Columns = () => {
+const Columns = ({ navigation }) => {
   const { user, board } = useContext(UserContext);
 
   const [columns, setColumns] = useState([]);
 
   useEffect(() => {
     loadColumns();
-  }, [board]);
+
+    const interval = setInterval(() => {
+      loadColumns();
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const loadColumns = async () => {
     try {
-      console.log(board);
       const columns = await getAllColumnOfBoard(board);
       setColumns(columns);
     } catch (error) {
@@ -39,19 +46,17 @@ const Columns = () => {
       <View>
         <StatusBarBackground />
       </View>
-      <View style={globalStyles.containerForm}>
-        <Toast config={toastConfig} />
+      <Toast config={toastConfig} />
+      <ScrollView style={globalStyles.paddingTop}>
         <Text style={globalStyles.title}>Liste des colonnes</Text>
         <FlatList
           data={columns}
           renderItem={({ item }) => (
-            <View>
-              <Text style={globalStyles.title}>{item.columnTitle}</Text>
-            </View>
+            <ColumnCard data={item} navigation={navigation} />
           )}
           keyExtractor={(item) => item.name}
         />
-      </View>
+      </ScrollView>
     </>
   );
 };

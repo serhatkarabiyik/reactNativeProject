@@ -18,7 +18,7 @@ const LongCard = ({ data, nav }) => {
     // Définition du tableau actuel en utilisant setBoard du contexte
     setBoard(data.boardId);
     // Naviguer vers la destination souhaitée (à remplacer par votre destination réelle)
-    nav.navigate("");
+    // nav.navigate("Profil");
   };
 
   return (
@@ -34,7 +34,7 @@ const LongCard = ({ data, nav }) => {
       <Icon name="trash" type="font-awesome" color="#BF0808" />
 
       {/* Icône de stylo pour éditer la carte */}
-      <Icon name="pen" type="font-awesome" color="#1E3050" />
+      <Icon name="pencil" type="font-awesome" color="#1E3050" />
     </Card>
   );
 };

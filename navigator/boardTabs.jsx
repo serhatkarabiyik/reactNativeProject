@@ -7,6 +7,9 @@ import React from "react";
 // Importation du composant StyleSheet de React Native pour définir des styles
 import { StyleSheet } from "react-native";
 
+// Importation du composant MaterialCommunityIcons depuis la bibliothèque react-native-vector-icons
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+
 // Importation des composants User, Home, BoardAjout, TaskAdd et Columns depuis les fichiers correspondants
 import User from "../vues/user";
 import Home from "../vues/home";
@@ -28,7 +31,7 @@ const BoardTabs = () => {
         component={Home}
         // Options de l'onglet, telles que le label et l'icône
         options={{
-          tabBarLabel: "Home",
+          tabBarLabel: "Accueil",
           tabBarIcon: ({ color }) => (
             // Icône de l'onglet utilisant le composant MaterialCommunityIcons
             <MaterialCommunityIcons name="view-dashboard" size={26} />
@@ -41,7 +44,7 @@ const BoardTabs = () => {
         name="Add"
         component={BoardAjout}
         options={{
-          tabBarLabel: "Add",
+          tabBarLabel: "Ajouter",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="plus-circle" size={26} />
           ),
@@ -49,7 +52,7 @@ const BoardTabs = () => {
       />
 
       {/* Onglet "Tâche" avec l'écran Columns */}
-      <Tab.Screen name="Tâche" component={Columns} />
+      {/* <Tab.Screen name="Tâche" component={Columns} /> */}
 
       {/* Onglet "Profil" avec l'écran User */}
       <Tab.Screen

@@ -22,6 +22,17 @@ const UserTabs = () => {
   return (
     // Utilisation du Tab.Navigator pour définir la structure de l'onglet
     <Tab.Navigator>
+      {/* Onglet "Connexion" avec l'écran Login */}
+      <Tab.Screen
+        name="Connexion"
+        component={Login}
+        options={{
+          tabBarLabel: "Connexion",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="login" size={26} />
+          ),
+        }}
+      ></Tab.Screen>
       {/* Onglet "Inscription" avec l'écran Register */}
       <Tab.Screen
         name="Inscription"
@@ -31,18 +42,6 @@ const UserTabs = () => {
           tabBarLabel: "Inscription",
           tabBarIcon: ({ color }) => (
             // Icône de l'onglet utilisant le composant MaterialCommunityIcons
-            <MaterialCommunityIcons name="login" size={26} />
-          ),
-        }}
-      ></Tab.Screen>
-
-      {/* Onglet "Connexion" avec l'écran Login */}
-      <Tab.Screen
-        name="Connexion"
-        component={Login}
-        options={{
-          tabBarLabel: "Connexion",
-          tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account-plus" size={26} />
           ),
         }}

@@ -3,7 +3,9 @@ import { View, StyleSheet, Text, TouchableOpacity, Alert } from "react-native";
 import { globalStyles } from "../styles/globalStyles";
 import { UserContext } from "../context/userContext";
 import { ajoutBoard } from "../api/board";
-import { Input } from "@rneui/themed";
+import { Input, Button } from "@rneui/themed";
+
+import StatusBarBackground from "../components/statusBarBg";
 
 const BoardAjout = () => {
   const [nom, setNom] = useState("");

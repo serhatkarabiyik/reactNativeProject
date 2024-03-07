@@ -124,3 +124,26 @@ export async function getAllColumnOfBoard(boardId) {
     throw new Error("Unable to get projects.");
   }
 }
+
+// getColumn need boardId, columnId
+export async function getColumn(boardId, columnId) {
+  try {
+    const boardCollection = collection(firestore, "boards");
+    const boardQuery = query(boardCollection, where("boardId", "==", boardId));
+
+    const querySnapshot = await getDocs(boardQuery);
+
+    if (querySnapshot.empty) {
+      throw new Error("Board not found");
+    }
+    let column;
+    querySnapshot.forEach(async (doc) => {
+      let columns = doc.data().columns || [];
+      column = columns.find((column) => column.columnId === columnId);
+    });
+    return column;
+  } catch (error) {
+    console.error("Error getting projects: ", error);
+    throw new Error("Unable to get projects.");
+  }
+}

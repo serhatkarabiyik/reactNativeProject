@@ -22,4 +22,8 @@ export const globalStyles = StyleSheet.create({
     padding: 3,
     marginVertical: 5,
   },
+  paddingTop: {
+    marginTop: 60,
+    paddingHorizontal: 15,
+  },
 });

@@ -14,10 +14,10 @@ import LongCard from "../components/longCard";
 // Définition du composant Home qui représente l'écran d'accueil de l'application
 const Home = ({ navigation }) => {
   // État local pour stocker la liste des tableaux (boards)
-  const [boards, setBoard] = useState([]);
+  const [boards, setBoards] = useState([]);
 
   // Utilisation du contexte utilisateur pour obtenir les informations de l'utilisateur connecté
-  const { user } = useContext(UserContext);
+  const { user, setBoard } = useContext(UserContext);
 
   // Effet secondaire pour charger les tableaux à chaque changement de navigation (focus sur l'écran)
   useEffect(() => {
@@ -35,6 +35,7 @@ const Home = ({ navigation }) => {
   useEffect(() => {
     // Appel de la fonction pour charger les tableaux
     loadBoards();
+    setBoard("");
   }, []);
 
   // Fonction pour charger les tableaux depuis la base de données
@@ -44,7 +45,7 @@ const Home = ({ navigation }) => {
       const loadedBoards = await getAllBoard(user.uid);
 
       // Mise à jour de l'état local avec la liste des tableaux
-      setBoard(loadedBoards);
+      setBoards(loadedBoards);
     } catch (error) {
       // Affichage de l'erreur dans la console en cas d'échec
       console.error("Error loading boards:", error);
