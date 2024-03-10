@@ -36,7 +36,6 @@ const Login = () => {
           contentContainerStyle: {
             paddingHorizontal: 50,
           },
-          topOffset: 0,
         });
       } else if (error.message.includes("invalid-credential")) {
         Toast.show({
@@ -46,7 +45,6 @@ const Login = () => {
           text2Style: {
             fontSize: 14,
           },
-          topOffset: 0,
         });
       } else {
         Toast.show({
@@ -56,7 +54,6 @@ const Login = () => {
           text2Style: {
             fontSize: 14,
           },
-          topOffset: 0,
         });
       }
     }
@@ -68,7 +65,6 @@ const Login = () => {
         <StatusBarBackground />
       </View>
       <View style={globalStyles.containerForm}>
-        <Toast config={toastConfig} />
         <Text style={globalStyles.title}>Connexion</Text>
         <Input
           placeholder="Entrez votre email"

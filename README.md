@@ -9,8 +9,14 @@ L'objectif de ce projet est de fournir une interface utilisateur conviviale et i
 ## Fonctionnalités
 
 - Création, modification et suppression de tableaux, listes / colonnes et cartes.
-- Suivi de l'état des tâches à l'aide des étiquettes "À faire", "En cours" et "Terminé".
 - Interface utilisateur réactive et intuitive grâce à React Native.
+
+## Fonctionnement
+
+L'utilisateur se connecte ou crée un compte, une fois connecter l'utilisateur peut voir sa liste de board qu'il pourra editer ou supprimer, dans l'onglet ajout l'utilisateur peut cree une nouvelle board et dans l'onglet Profil l'utilisateur peut acceder a son profil et se déconnecter.
+
+Dans la liste de board, il pourra selectionner une board en cliquant sur le nom de la board, une fois selectionner il aurra acces a ses colonnes s'il en possedent, s'il n'en possedent pas il pourra en creer dans l'onglet ajout, les colonnes sont retractable avec le chevrons pour gagner de la place. dans ces colonnes il a accès a ses tache. A coter du chevrons de la colonne se situe trois petit bouton. Qui sert a ouvrir une modal, dans cette modal nous pouvont soit creer une tahce soit editer soit supprimer une colonne.
+Les taches, quant a elle peuvent etre editer ou supprimer avec un swipe sur la tache.
 
 ## Prérequis
 

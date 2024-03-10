@@ -1,10 +1,11 @@
 import React, { useState, useContext } from "react";
 import { StyleSheet, Modal, View } from "react-native";
-import { ListItem, Button, Dialog, Text } from "@rneui/themed";
+import { ListItem, Button, Text } from "@rneui/themed";
+import DialogComponent from "./dialog";
 import { deleteColumn } from "../api/column";
 import { UserContext } from "../context/userContext";
 import Toast from "react-native-toast-message";
-import { toastConfig } from "../utils";
+import TaskCard from "./taskCard";
 
 const ColumnCard = (props) => {
   const { data, navigation } = props;
@@ -22,15 +23,15 @@ const ColumnCard = (props) => {
     setModalVisible(false);
   };
 
-  const handleColumn = async (id, action) => {
-    console.log(id, action);
-
+  const handleColumn = (id, action) => {
     if (id && action) {
       if (action === "edit") {
         navigation.navigate("columnAdd", { columnId: id });
       } else if (action === "delete") {
         setVisible(true);
         setColumnId(id);
+      } else if (action === "add") {
+        navigation.navigate("taskAdd", { columnId: id });
       }
     }
     closeModal();
@@ -46,7 +47,6 @@ const ColumnCard = (props) => {
         text2Style: {
           fontSize: 14,
         },
-        topOffset: 50,
       });
       setVisible(false);
       setColumnId();
@@ -55,7 +55,6 @@ const ColumnCard = (props) => {
       Toast.show({
         type: "error",
         text1: "Erreur",
-        topOffset: 50,
       });
     }
   };
@@ -90,49 +89,16 @@ const ColumnCard = (props) => {
           setExpanded(!expanded);
         }}
       >
-        {data?.tasks?.map((task) => (
-          <ListItem.Swipeable
-            leftWidth={80}
-            rightWidth={90}
-            minSlideWidth={40}
-            style={styles.swipeable}
-            containerStyle={styles.swipeableContainer}
-            leftContent={(action) => (
-              <Button
-                containerStyle={{
-                  flex: 1,
-                  justifyContent: "center",
-                  backgroundColor: "#f4f4f4",
-                }}
-                type="clear"
-                icon={{
-                  name: "archive-outline",
-                  type: "material-community",
-                }}
-                onPress={action}
-              />
-            )}
-            rightContent={(action) => (
-              <Button
-                containerStyle={{
-                  flex: 1,
-                  justifyContent: "center",
-                  backgroundColor: "#f4f4f4",
-                }}
-                type="clear"
-                icon={{ name: "delete-outline" }}
-                onPress={action}
-              />
-            )}
-          >
-            <ListItem style={styles.item}>
-              <ListItem.Content>
-                <ListItem.Title>{task.title}</ListItem.Title>
-              </ListItem.Content>
-            </ListItem>
-          </ListItem.Swipeable>
-        ))}
+      {data?.tasks?.map((task, key) => (
+        <TaskCard
+          task={task}
+          columnId={data.columnId}
+          key={key}
+          navigation={navigation}
+        />
+      ))}
       </ListItem.Accordion>
+
       <Modal
         visible={isModalVisible}
         animationType="slide"
@@ -152,8 +118,25 @@ const ColumnCard = (props) => {
               backgroundColor: "white",
               padding: 20,
               borderRadius: 10,
+              display: "flex",
+              flexDirection: "row",
             }}
           >
+            <Button
+              style={styles.accordionButton}
+              containerStyle={{
+                flex: 1,
+                justifyContent: "center",
+                backgroundColor: "transparent",
+                flex: "unset",
+              }}
+              type="clear"
+              icon={{
+                name: "card-plus",
+                type: "material-community",
+              }}
+              onPress={() => handleColumn(data.columnId, "add")}
+            />
             <Button
               style={styles.accordionButton}
               containerStyle={{
@@ -188,17 +171,12 @@ const ColumnCard = (props) => {
         </View>
       </Modal>
 
-      <Dialog isVisible={visible} onBackdropPress={() => setVisible(false)}>
-        <Dialog.Title title="Voulez vous vraiment supprimé ? " />
-        <Text>
-          Cette action est irréversible et toutes les données associées seront
-          perdues.
-        </Text>
-        <Dialog.Actions>
-          <Dialog.Button title="Supprimer" onPress={() => columnDelete()} />
-          <Dialog.Button title="Annuler" onPress={() => setVisible(false)} />
-        </Dialog.Actions>
-      </Dialog>
+      <DialogComponent
+        visible={visible}
+        onBackdropPress={() => setVisible(false)}
+        deleteAction={() => columnDelete()}
+        cancelAction={() => setVisible(false)}
+      />
     </>
   );
 };
@@ -213,25 +191,12 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   accordionTitle: {
-    display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
   },
   accordionButton: {
     width: "20px",
-  },
-  swipeable: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  swipeableContainer: {
-    flexDirection: "column",
-  },
-
-  item: {
-    width: "100%",
-    minWidth: "400px",
   },
 });
 

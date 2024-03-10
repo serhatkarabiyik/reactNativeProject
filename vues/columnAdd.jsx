@@ -18,7 +18,7 @@ const ColumnAdd = ({ navigation, route }) => {
   const { board } = useContext(UserContext);
   const [title, setTitle] = useState();
   const [column, setColumn] = useState();
-  console.log(route);
+
   let columnId = false;
   if (route) {
     columnId = route?.params?.columnId;
@@ -51,7 +51,6 @@ const ColumnAdd = ({ navigation, route }) => {
           text2Style: {
             fontSize: 14,
           },
-          topOffset: 0,
         });
         navigation.navigate("columnAdd", {});
         setColumn();
@@ -64,7 +63,6 @@ const ColumnAdd = ({ navigation, route }) => {
           text2Style: {
             fontSize: 14,
           },
-          topOffset: 0,
         });
       }
       setTitle("");
@@ -72,7 +70,6 @@ const ColumnAdd = ({ navigation, route }) => {
       Toast.show({
         type: "error",
         text1: "Erreur",
-        topOffset: 0,
       });
     }
   };
@@ -83,7 +80,6 @@ const ColumnAdd = ({ navigation, route }) => {
         <StatusBarBackground />
       </View>
       <View style={globalStyles.containerForm}>
-        <Toast config={toastConfig} />
         <Text style={globalStyles.title}>
           {columnId ? "Modifier la colonne" : "Ajouter une colonne"}
         </Text>

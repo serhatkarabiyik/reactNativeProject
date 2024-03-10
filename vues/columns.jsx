@@ -14,7 +14,6 @@ import StatusBarBackground from "../components/statusBarBg";
 import { globalStyles } from "../styles/globalStyles";
 import { toastConfig } from "../utils";
 import ColumnCard from "../components/columnCard";
-import { ScrollView } from "react-native-gesture-handler";
 
 const Columns = ({ navigation }) => {
   const { user, board } = useContext(UserContext);
@@ -46,17 +45,15 @@ const Columns = ({ navigation }) => {
       <View>
         <StatusBarBackground />
       </View>
-      <Toast config={toastConfig} />
-      <ScrollView style={globalStyles.paddingTop}>
-        <Text style={globalStyles.title}>Liste des colonnes</Text>
+      <View style={globalStyles.paddingTop}>
         <FlatList
           data={columns}
           renderItem={({ item }) => (
             <ColumnCard data={item} navigation={navigation} />
           )}
-          keyExtractor={(item) => item.name}
+          keyExtractor={(item) => item.columnId}
         />
-      </ScrollView>
+      </View>
     </>
   );
 };

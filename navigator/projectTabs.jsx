@@ -16,6 +16,9 @@ import ColumnAdd from "../vues/columnAdd";
 import Columns from "../vues/columns";
 
 import { createStackNavigator } from "@react-navigation/stack";
+import TaskAdd from "../vues/taskAdd";
+import TaskStack from "./taskStack";
+import TaskDetail from "../vues/taskDetail";
 const Stack = createStackNavigator();
 
 // Création d'une instance de createMaterialBottomTabNavigator
@@ -29,7 +32,7 @@ const ProjectTabs = () => {
       <Tab.Navigator initialRouteName="Columns">
         <Tab.Screen
           name="Columns"
-          component={Columns}
+          component={TaskStack}
           // Options de l'onglet, telles que le label et l'icône
           options={{
             tabBarLabel: "Colonnes",
@@ -49,6 +52,18 @@ const ProjectTabs = () => {
               <MaterialCommunityIcons name="plus-circle" size={26} />
             ),
           }}
+        />
+
+        <Tab.Screen
+          name="taskAdd"
+          component={TaskAdd}
+          options={{
+            tabBarLabel: "Ajouter",
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="plus-circle" size={26} />
+            ),
+          }}
+          style={{ display: "none" }}
         />
 
         {/* Onglet "Board" avec l'écran Home */}

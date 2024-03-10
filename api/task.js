@@ -8,6 +8,7 @@ import {
   getDoc,
   getDocs,
   where,
+  updateDoc,
 } from "@firebase/firestore";
 
 import "react-native-get-random-values";
@@ -28,30 +29,90 @@ export function getAllTask(userId) {
   });
 }
 
-export async function createTask(userId, columnId, title, description) {
+export async function createTask(boardId, columnId, title, description) {
   try {
     const boardCollection = collection(firestore, "boards");
 
-    const boardQuery = query(boardCollection, where("createdBy", "==", userId));
+    const boardQuery = query(boardCollection, where("boardId", "==", boardId));
 
     const querySnapshot = await getDocs(boardQuery);
 
-    const column = querySnapshot
-      .data()
-      .columns.find((col) => col.idColumn === columnId);
+    let column;
+    querySnapshot.forEach(async (doc) => {
+      const boardRef = doc.ref;
 
-    const newTask = {
-      titleTask: title,
-      descriptionTask: description,
-      idTask: uuidv4(),
-    };
+      const boardData = doc.data();
 
-    // await updateDoc(boardDocRef, {
-    //   tasks: [...column.tasks, newTask],
-    // });
+      const column = boardData.columns.find((col) => col.columnId === columnId);
+
+      if (column) {
+        const newTask = {
+          taskTitle: title,
+          taskDescription: description,
+          taskId: uuidv4(),
+        };
+
+        // Update the specific column in the board document
+        await updateDoc(boardRef, {
+          columns: boardData.columns.map((col) => {
+            if (col.columnId === columnId) {
+              return {
+                ...col,
+                tasks: [...col.tasks, newTask],
+              };
+            }
+            return col;
+          }),
+        });
+      } else {
+        console.error("Column not found");
+      }
+    });
   } catch (error) {
     console.error("Error adding board: ", error);
     throw new Error("Unable to create board.");
+  }
+}
+
+export async function deleteTask(boardId, columnId, taskId) {
+  try {
+    const boardCollection = collection(firestore, "boards");
+
+    const boardQuery = query(boardCollection, where("boardId", "==", boardId));
+
+    const querySnapshot = await getDocs(boardQuery);
+
+    querySnapshot.forEach(async (doc) => {
+      const boardRef = doc.ref;
+
+      const boardData = doc.data();
+
+      const column = boardData.columns.find((col) => col.columnId === columnId);
+
+      if (column) {
+        const updatedTasks = column.tasks.filter(
+          (task) => task.taskId !== taskId
+        );
+
+        // Update the specific column in the board document to remove the task
+        await updateDoc(boardRef, {
+          columns: boardData.columns.map((col) => {
+            if (col.columnId === columnId) {
+              return {
+                ...col,
+                tasks: updatedTasks,
+              };
+            }
+            return col;
+          }),
+        });
+      } else {
+        console.error("Column not found");
+      }
+    });
+  } catch (error) {
+    console.error("Error deleting task: ", error);
+    throw new Error("Unable to delete task.");
   }
 }
 

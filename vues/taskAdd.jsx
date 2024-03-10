@@ -11,26 +11,50 @@ import Toast from "react-native-toast-message";
 // Utils
 import { globalStyles } from "../styles/globalStyles";
 import StatusBarBackground from "../components/statusBarBg";
-import { getAllTaskOfColumn } from "../api/task";
+import { getAllTaskOfColumn, createTask } from "../api/task";
 
-const TaskAdd = () => {
+const TaskAdd = ({ route }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const { user } = useContext(UserContext);
+  const { user, board } = useContext(UserContext);
 
-  useEffect(() => {
-    loadBoards();
-  }, []);
+  let columnId = false;
+  let taskId = false;
+  if (route) {
+    columnId = route?.params?.columnId;
+  }
 
   const handleAddTask = async () => {
     try {
-    } catch (error) {}
-  };
-
-  const loadBoards = async () => {
-    try {
-      const c = await getAllTaskOfColumn(user.uid);
-    } catch (error) {}
+      if (taskId) {
+        await updateTask(board, columnId, title, description);
+        Toast.show({
+          type: "success",
+          text1: "Succès",
+          text2: "Tâche modifiée avec succès !",
+          text2Style: {
+            fontSize: 14,
+          },
+        });
+      } else {
+        await createTask(board, columnId, title, description);
+        Toast.show({
+          type: "success",
+          text1: "Succès",
+          text2: "Tâche ajoutée avec succès !",
+          text2Style: {
+            fontSize: 14,
+          },
+        });
+      }
+      setTitle("");
+      setDescription("");
+    } catch (error) {
+      Toast.show({
+        type: "error",
+        text1: "Erreur",
+      });
+    }
   };
 
   return (

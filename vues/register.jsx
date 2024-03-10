@@ -34,7 +34,6 @@ const Register = () => {
             text2Style: {
               fontSize: 14,
             },
-            topOffset: 0,
           });
         } else if (error.message.includes("password")) {
           Toast.show({
@@ -44,7 +43,6 @@ const Register = () => {
             text2Style: {
               fontSize: 14,
             },
-            topOffset: 0,
           });
         } else if (error.message.includes("email-already-in-use")) {
           Toast.show({
@@ -54,7 +52,6 @@ const Register = () => {
             text2Style: {
               fontSize: 14,
             },
-            topOffset: 0,
           });
         } else {
           Toast.show({
@@ -64,7 +61,6 @@ const Register = () => {
             text2Style: {
               fontSize: 14,
             },
-            topOffset: 0,
           });
         }
       }
@@ -77,7 +73,6 @@ const Register = () => {
         <StatusBarBackground />
       </View>
       <View style={globalStyles.containerForm}>
-        <Toast config={toastConfig} />
         <Text style={globalStyles.title}>Inscription</Text>
         <Input
           placeholder="Entrez votre email"
